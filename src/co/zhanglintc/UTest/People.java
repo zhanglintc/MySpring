@@ -1,11 +1,11 @@
-package co.zhanglintc.MySpring;
+package co.zhanglintc.UTest;
 
 public class People {
 	private String name;
 	
 	public People() {}
 	
-	People(String name) {
+	public People(String name) {
 		this.name = name;
 	}
 	
