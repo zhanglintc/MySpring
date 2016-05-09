@@ -3,6 +3,8 @@ package co.zhanglintc.UTest;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.w3c.dom.Element;
+
 import co.zhanglintc.UTest.People;
 import co.zhanglintc.MySpring.XMLParser;
 
@@ -19,7 +21,10 @@ public class UTest {
 		Method intro = clz.getMethod("intro", (Class[])null);
 		intro.invoke(yanbin, (Object[])null);
 		
-		XMLParser.parseXML();
+		XMLParser xmlParser = new XMLParser();
+		Element element = xmlParser.getElementByID("helloWorld");
+		String v = xmlParser.getValueByName(element, "message");
+		System.out.print(v);
 	}
 
 }

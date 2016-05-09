@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class>
-   <student rollno="393">
-      <firstname>dinkar</firstname>
-      <lastname>kad</lastname>
-      <nickname>dinkar</nickname>
-      <marks>85</marks>
-   </student>
-   <student rollno="493">
-      <firstname>Vaneet</firstname>
-      <lastname>Gupta</lastname>
-      <nickname>vinni</nickname>
-      <marks>95</marks>
-   </student>
-   <student rollno="593">
-      <firstname>jasvir</firstname>
-      <lastname>singn</lastname>
-      <nickname>jazz</nickname>
-      <marks>90</marks>
-   </student>
-</class>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="helloWorld" class="com.tutorialspoint.HelloWorld">
+		<property name="message" value="Hello World!" />
+	</bean>
+
+</beans>
