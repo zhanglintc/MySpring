@@ -24,70 +24,58 @@ public class XMLParser {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String getClassByID(String id) {
 		NodeList nList = getBeanList();
 		for (int i = 0; i < nList.getLength(); i++) {
 			Node nNode = nList.item(i);
 			Element eElement = (Element) nNode;
-			if(id.equals(eElement.getAttribute("id"))) {
+			if (id.equals(eElement.getAttribute("id"))) {
 				return eElement.getAttribute("class");
 			}
 		}
 		return null;
 	}
-	
+
 	public String getValueByName(Element eElement, String name) {
 		NodeList nList = getProperyList(eElement);
 		for (int i = 0; i < nList.getLength(); i++) {
 			Node nNode = nList.item(i);
 			Element ele = (Element) nNode;
-			if(name.equals(ele.getAttribute("name"))) {
+			if (name.equals(ele.getAttribute("name"))) {
 				return ele.getAttribute("value");
 			}
 		}
 		return null;
 	}
-	
-	public Element getElementByID(String id) {
+
+	public Element getBeanByID(String id) {
+		Element bean = null;
 		NodeList nList = getBeanList();
 		for (int i = 0; i < nList.getLength(); i++) {
-			Node nNode = nList.item(i);
-			Element eElement = (Element) nNode;
-			if(id.equals(eElement.getAttribute("id"))) {
-				return eElement;
+			Element ele = (Element) nList.item(i);
+			if (id.equals(ele.getAttribute("id"))) {
+				bean = ele;
 			}
 		}
-		return null;
+		return bean;
 	}
-	
-	private String getName(Element ele) {
-		return ele.getAttribute("name");
-	}
-	
-	private ArrayList<String> getNamesByID(String id) {
-		ArrayList<String> names = null;
-		NodeList nList = getBeanList();
-		for (int i = 0; i < nList.getLength(); i++) {
-			Node nNode = nList.item(i);
-			Element eElement = (Element) nNode;
-			if(id.equals(eElement.getAttribute("id"))) {
-				NodeList properties = getProperyList(eElement);
-				for (int j = 0; j < properties.getLength(); j++)  {
-					Node node = properties.item(j);
-					Element property = (Element)node;
-					names.add(property.getAttribute("name"));
-				}
-			}
+
+	public ArrayList<String> getNameList(Element ele) {
+		ArrayList<String> nameList = new ArrayList<String>();
+		NodeList properties = getProperyList(ele);
+		for (int j = 0; j < properties.getLength(); j++) {
+			Element property = (Element) properties.item(j);
+			nameList.add(property.getAttribute("name"));
 		}
-		
-		return names;
+
+		return nameList;
 	}
-	
+
 	private NodeList getProperyList(Element eElement) {
 		return eElement.getElementsByTagName("property");
 	}
-	
+
 	private NodeList getBeanList() {
 		return doc.getElementsByTagName("bean");
 	}
