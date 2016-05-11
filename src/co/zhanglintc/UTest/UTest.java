@@ -1,34 +1,14 @@
 package co.zhanglintc.UTest;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
-import org.w3c.dom.Element;
-
-import co.zhanglintc.UTest.People;
-import co.zhanglintc.MySpring.XMLParser;
+import co.zhanglintc.MySpring.ApplicationContext;
 
 public class UTest {
 
-	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
-			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		People zhanglin = new People("zhanglin\n");
+	public static void main(String[] args)
+			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		ApplicationContext context = new ApplicationContext("Beans.xml");
+		People zhanglin = (People) context.getBean("helloWorld");
 		zhanglin.intro();
-
-		Class<?> clz = Class.forName("co.zhanglintc.UTest.People");
-		People yanbin = (People) clz.newInstance();
-		Method st = clz.getMethod("setName", String.class);
-		st.invoke(yanbin, "shabi\n");
-		Method intro = clz.getMethod("intro", (Class[]) null);
-		intro.invoke(yanbin, (Object[]) null);
-
-		XMLParser xmlParser = new XMLParser();
-		Element element = xmlParser.getBeanByID("helloWorld");
-		ArrayList<String> names = xmlParser.getNameList(element);
-		for (String v : names) {
-			System.out.print(v + "\n");
-		}
 	}
 
 }

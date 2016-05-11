@@ -14,9 +14,9 @@ import org.w3c.dom.NodeList;
 public class XMLParser {
 	private Document doc;
 
-	public XMLParser() {
+	protected XMLParser(String xmlPath) {
 		try {
-			File inputFile = new File("src/Beans.xml");
+			File inputFile = new File(xmlPath);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			this.setDoc(dBuilder.parse(inputFile));
@@ -25,7 +25,7 @@ public class XMLParser {
 		}
 	}
 
-	public String getClassByID(String id) {
+	protected String getClassByID(String id) {
 		NodeList nList = getBeanList();
 		for (int i = 0; i < nList.getLength(); i++) {
 			Node nNode = nList.item(i);
@@ -37,19 +37,19 @@ public class XMLParser {
 		return null;
 	}
 
-	public String getValueByName(Element eElement, String name) {
-		NodeList nList = getProperyList(eElement);
+	protected String getValueByName(Element ele, String name) {
+		NodeList nList = getProperyList(ele);
 		for (int i = 0; i < nList.getLength(); i++) {
 			Node nNode = nList.item(i);
-			Element ele = (Element) nNode;
-			if (name.equals(ele.getAttribute("name"))) {
-				return ele.getAttribute("value");
+			Element e = (Element) nNode;
+			if (name.equals(e.getAttribute("name"))) {
+				return e.getAttribute("value");
 			}
 		}
 		return null;
 	}
 
-	public Element getBeanByID(String id) {
+	protected Element getBeanByID(String id) {
 		Element bean = null;
 		NodeList nList = getBeanList();
 		for (int i = 0; i < nList.getLength(); i++) {
@@ -61,7 +61,7 @@ public class XMLParser {
 		return bean;
 	}
 
-	public ArrayList<String> getNameList(Element ele) {
+	protected ArrayList<String> getNameList(Element ele) {
 		ArrayList<String> nameList = new ArrayList<String>();
 		NodeList properties = getProperyList(ele);
 		for (int j = 0; j < properties.getLength(); j++) {
@@ -72,19 +72,19 @@ public class XMLParser {
 		return nameList;
 	}
 
-	private NodeList getProperyList(Element eElement) {
+	protected NodeList getProperyList(Element eElement) {
 		return eElement.getElementsByTagName("property");
 	}
 
-	private NodeList getBeanList() {
+	protected NodeList getBeanList() {
 		return doc.getElementsByTagName("bean");
 	}
 
-	public Document getDoc() {
+	protected Document getDoc() {
 		return doc;
 	}
 
-	public void setDoc(Document doc) {
+	protected void setDoc(Document doc) {
 		this.doc = doc;
 	}
 }
