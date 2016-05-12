@@ -1,7 +1,6 @@
 package co.zhanglintc.MySpring;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -55,12 +54,19 @@ public class ApplicationContext {
 		this.xmlParser = xmlParser;
 	}
 
-	public Object getBean(String beanID) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		String className = xmlParser.getClassByID(beanID);
+	public Object getBean(String beanID) {
+		try {
+			String className = xmlParser.getClassByID(beanID);
 
-		Class<?> clz = Class.forName(className);
-		Object obj = clz.newInstance();
-		loadValues(clz, obj, beanID);
-		return obj;
+			Class<?> clz = Class.forName(className);
+			Object obj = clz.newInstance();
+			loadValues(clz, obj, beanID);
+
+			return obj;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }
