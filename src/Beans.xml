@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="helloWorld" class="co.zhanglintc.UTest.People">
+	<bean id="aPeople" class="co.zhanglintc.UTest.People">
 		<property name="name" value="zhanglin" />
 		<property name="action" value="Wave hands!" />
 		<property name="tool" ref="wing" />
@@ -13,10 +13,6 @@
 
 	<bean id="wing" class="co.zhanglintc.UTest.Tool">
 		<property name="name" value="wing" />
-	</bean>
-	
-	<bean id="gun" class="co.zhanglintc.UTest.Tool">
-		<property name="name" value="gun" />
 	</bean>
 
 </beans>
