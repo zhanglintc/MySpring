@@ -25,6 +25,22 @@ public class XMLParser {
 		}
 	}
 
+	protected boolean containValue(Element ele) {
+		if (ele.getAttribute("value").equals("")) {
+			return false;
+		}
+
+		return true;
+	}
+
+	protected boolean containRef(Element ele) {
+		if (ele.getAttribute("ref").equals("")) {
+			return false;
+		}
+
+		return true;
+	}
+
 	protected String getClassByID(String id) {
 		NodeList nList = getBeanList();
 		for (int i = 0; i < nList.getLength(); i++) {
@@ -37,6 +53,10 @@ public class XMLParser {
 		return null;
 	}
 
+	protected String getAttr(Element ele, String attr) {
+		return ele.getAttribute(attr);
+	}
+
 	protected String getValueByName(Element ele, String name) {
 		NodeList nList = getProperyList(ele);
 		for (int i = 0; i < nList.getLength(); i++) {
@@ -46,6 +66,20 @@ public class XMLParser {
 				return e.getAttribute("value");
 			}
 		}
+
+		return null;
+	}
+
+	protected String getRefByName(Element ele, String name) {
+		NodeList nList = getProperyList(ele);
+		for (int i = 0; i < nList.getLength(); i++) {
+			Node nNode = nList.item(i);
+			Element e = (Element) nNode;
+			if (name.equals(e.getAttribute("name"))) {
+				return e.getAttribute("ref");
+			}
+		}
+
 		return null;
 	}
 
@@ -72,8 +106,8 @@ public class XMLParser {
 		return nameList;
 	}
 
-	protected NodeList getProperyList(Element eElement) {
-		return eElement.getElementsByTagName("property");
+	protected NodeList getProperyList(Element ele) {
+		return ele.getElementsByTagName("property");
 	}
 
 	protected NodeList getBeanList() {
